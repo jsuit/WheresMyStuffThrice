@@ -1,0 +1,152 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Black"
+    tools:context=".MainUserScreen" >
+
+    <!--
+         The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc.
+    -->
+
+    <!--
+         This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows.
+    -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <QuickContactBadge
+            android:id="@+id/quickContactBadge1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dip" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/Black"
+                android:ems="10" >
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/autoCompleteTextView1"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_toRightOf="@+id/autoCompleteTextView1"
+                android:onClick="ButtonClick"
+                android:text="Button" />
+
+          
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/adv_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="advanced_search"
+            android:text="Advanced Search"
+            style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/your_listingButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="yourListings"
+            android:text="Your Listings"
+            style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/postItemButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="postItem"
+            android:text="Post An Item"
+            style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/yourContactsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="yourContacts"
+            android:text="Your Contacts"
+            style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/addRemove"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="addOrRemoveAdmin"
+            android:text="Add/Remove Admin"
+            android:textColor="@color/White"
+            style="?android:attr/buttonStyleSmall"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/lock_unlock"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:onClick="lockOrUnlock"
+            android:text="Lock/Unlock Account"
+            style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/White"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/remove_user_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:textColor="@color/White"
+            android:visibility="gone"
+            android:onClick="removeUser"
+            android:text="@string/remove_user" />
+
+        <Button
+            android:id="@+id/logout"
+             style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="5dip"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:onClick="logout"
+            android:textColor="@color/White" />
+
+    </LinearLayout>
+
+</FrameLayout>

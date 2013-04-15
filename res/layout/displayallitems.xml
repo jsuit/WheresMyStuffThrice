@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/lost_radio"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/lost_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Lost"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/donations_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donations"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/found_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Found"
+            android:textSize="12dp" />
+
+        <RadioButton
+            android:id="@+id/needed_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Needed"
+            android:textSize="12dp" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/search_by"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/radioGroup"
+        android:prompt="@string/Search_by"
+        android:spinnerMode="dropdown"
+        android:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/search_category"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_by"
+        android:prompt="@string/refine_search"
+        android:spinnerMode="dropdown"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_category"
+        android:layout_toRightOf="@+id/date_btn"
+        android:onClick="search_btn"
+        android:text="Search" />
+
+    <Button
+        android:id="@+id/date_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_category"
+        android:onClick="datePicker"
+        android:text="Date"
+        android:visibility="visible" />
+
+    <RadioGroup
+        android:id="@+id/status_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/radioGroup"
+        android:layout_alignTop="@+id/search_btn"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <RadioButton
+            android:id="@+id/on_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onRadioButtonStatusClicked"
+            android:text="Open" />
+
+        <RadioButton
+            android:id="@+id/off_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonStatusClicked"
+            android:text="Closed" />
+    </RadioGroup>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/search_btn"
+        android:layout_alignBottom="@+id/search_btn"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Name"
+        android:textColor="@color/Black"
+        android:visibility="visible" />
+
+    <AutoCompleteTextView
+        android:id="@+id/zip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/autoCompleteTextView1"
+        android:ems="10"
+        android:hint="Zip"
+        android:text=""
+        android:visibility="gone" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <ListView
+        android:id="@+id/list_of_many_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_btn"
+        android:layout_marginTop="30dp"
+        android:visibility="visible" >
+    </ListView>
+
+</RelativeLayout>

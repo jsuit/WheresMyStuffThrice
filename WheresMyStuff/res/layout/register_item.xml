@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <AutoCompleteTextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="23dp"
+            android:ems="10"
+            android:hint="@string/Item_Name" >
+
+            <requestFocus />
+        </AutoCompleteTextView>
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_name"
+            android:layout_below="@+id/item_name"
+            android:ems="10"
+            android:hint="@string/Item_Description" />
+
+        <Spinner
+            android:id="@+id/spinner_Category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_description"
+            android:layout_below="@+id/item_description"
+            android:entries="@array/Category"
+            android:spinnerMode="dialog"
+            android:prompt="@string/Select_Category"
+            />
+
+        <EditText
+            android:id="@+id/zip_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spinner_Category"
+            android:layout_below="@+id/spinner_Category"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:hint="@string/Zip" />
+
+        <EditText
+            android:id="@+id/Street"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/zip_code"
+            android:layout_below="@+id/zip_code"
+            android:ems="10"
+            android:hint="@string/Main_Street"
+            android:inputType="textPostalAddress" />
+
+        <CheckBox
+            android:id="@+id/Heirlooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/keepsakes"
+            android:layout_alignBottom="@+id/keepsakes"
+            android:layout_toRightOf="@+id/keepsakes"
+            android:text="@string/Heirlooms" />
+
+        <CheckBox
+            android:id="@+id/Misc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Heirlooms"
+            android:layout_alignBottom="@+id/Heirlooms"
+            android:layout_toRightOf="@+id/Heirlooms"
+            android:text="@string/Misc" />
+
+        <Button
+            android:id="@+id/Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Heirlooms"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp"
+            android:background="@color/Black"
+            android:drawableTop="@drawable/save_button"
+            android:onClick="saveItem" />
+
+        <CheckBox
+            android:id="@+id/keepsakes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Street"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/Save"
+            android:text="@string/Keepsakes" />
+        
+    </RelativeLayout>
+    
+</ScrollView>

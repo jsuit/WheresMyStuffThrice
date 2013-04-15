@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/item_name_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/WhiteSmoke"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/item_description_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_name_row"
+        android:layout_below="@+id/item_name_row"
+        android:textColor="@color/WhiteSmoke"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/item_date_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_description_row"
+        android:layout_below="@+id/item_description_row"
+        android:textColor="@color/WhiteSmoke"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/item_status_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_date_row"
+        android:layout_below="@+id/item_date_row"
+        android:textColor="@color/WhiteSmoke"
+        android:text="TextView" />
+
+</RelativeLayout>
