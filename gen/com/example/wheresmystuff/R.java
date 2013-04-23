@@ -170,13 +170,15 @@ public final class R {
     public static final class drawable {
         public static final int button_small_search=0x7f020000;
         public static final int crosshairs=0x7f020001;
-        public static final int ic_action_name=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int save_button=0x7f020004;
-        public static final int search_btn=0x7f020005;
-        public static final int search_button=0x7f020006;
-        public static final int shape=0x7f020007;
-        public static final int wheresmystuffimage=0x7f020008;
+        public static final int heads=0x7f020002;
+        public static final int ic_action_name=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int save_button=0x7f020005;
+        public static final int search_btn=0x7f020006;
+        public static final int search_button=0x7f020007;
+        public static final int shape=0x7f020008;
+        public static final int tails=0x7f020009;
+        public static final int wheresmystuffimage=0x7f02000a;
     }
     public static final class id {
         public static final int Heirlooms=0x7f0a003d;
@@ -184,7 +186,7 @@ public final class R {
         public static final int Name=0x7f0a0035;
         public static final int Save=0x7f0a0039;
         public static final int Street=0x7f0a0033;
-        public static final int action_settings=0x7f0a0042;
+        public static final int action_settings=0x7f0a0043;
         public static final int addRemove=0x7f0a0019;
         public static final int adminID=0x7f0a0001;
         public static final int adv_search=0x7f0a0015;
@@ -235,13 +237,14 @@ public final class R {
         public static final int search_category=0x7f0a0023;
         public static final int spinnerTarget=0x7f0a0040;
         public static final int spinner_Category=0x7f0a003c;
+        public static final int splash_image=0x7f0a0041;
         public static final int status_radio=0x7f0a0026;
         public static final int subject=0x7f0a002b;
         public static final int to=0x7f0a002c;
         public static final int unlock_button=0x7f0a000b;
         public static final int unlock_username=0x7f0a0009;
         public static final int userId=0x7f0a000e;
-        public static final int user_row=0x7f0a0041;
+        public static final int user_row=0x7f0a0042;
         public static final int yourContactsButton=0x7f0a0018;
         public static final int your_listingButton=0x7f0a0016;
         public static final int zip=0x7f0a0029;
@@ -267,7 +270,8 @@ public final class R {
         public static final int register=0x7f030010;
         public static final int register_item=0x7f030011;
         public static final int spinner_row_target=0x7f030012;
-        public static final int user_row=0x7f030013;
+        public static final int splash=0x7f030013;
+        public static final int user_row=0x7f030014;
     }
     public static final class menu {
         public static final int activity_lock_unlock_menu=0x7f090000;

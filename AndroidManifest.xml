@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.wheresmystuff.View.MainActivity"
+            android:name="com.example.wheresmystuff.View.SplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +53,7 @@
         <activity android:name=".View.LockOrUnlock"></activity>
         <activity android:name=".View.RemoveUser"></activity>
         <activity android:name=".View.DisplayAllItems"></activity>
+        <activity android:name=".View.MainActivity"></activity>
         
         
     </application>

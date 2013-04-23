@@ -52,7 +52,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 	        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View rowView = inflater.inflate(R.layout.item_row, parent, false);
 	
-	    //Grab the two widgets in teh view
+	    //Grab the two widgets in the view
 	    TextView textView = (TextView) rowView.findViewById(R.id.item_name_row);
 	    TextView item_desrc = (TextView) rowView.findViewById(R.id.item_description_row);
 	    TextView item_date = (TextView) rowView.findViewById(R.id.item_date_row);
