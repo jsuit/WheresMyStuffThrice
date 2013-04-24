@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +29,14 @@ public class MainActivity extends Activity implements ILoginView{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		myPresenter = new Login_Presenter(this, new DB(this));
+		MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.harrypotter);
+		mPlayer.start();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
 	}
 
 	@Override
