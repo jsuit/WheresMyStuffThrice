@@ -27,11 +27,18 @@ public class MainActivity extends Activity implements ILoginView{
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		myPresenter = new Login_Presenter(this, new DB(this));
+		MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.harrypotter);
+		mPlayer.start();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
 		
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
