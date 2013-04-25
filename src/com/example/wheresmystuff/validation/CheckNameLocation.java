@@ -11,7 +11,8 @@ public class CheckNameLocation extends CheckDisplayAll {
 	/**
 	 * Constructor. Sets the Name or Location array to argument.
 	 * 
-	 * @param String [] array
+	 * @param String
+	 *            [] array
 	 */
 	public CheckNameLocation(String[] array) {
 		this.array = array;

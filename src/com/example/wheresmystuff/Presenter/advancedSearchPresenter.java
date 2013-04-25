@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.database.Cursor;
 
 import com.example.wheresmystuff.DB_Helper;
+import com.example.wheresmystuff.MinEditDistance;
 import com.example.wheresmystuff.Model.IModel;
 import com.example.wheresmystuff.Model.Item.Item;
 import com.example.wheresmystuff.Model.Item.LostItem;
@@ -16,49 +17,47 @@ import com.example.wheresmystuff.validation.CheckNameLocation;
 
 /**
  * Class that searches and tells the UI how to display itself.
- *
+ * 
  */
 
 public class advancedSearchPresenter {
 
-	//criteria is category, date, item name, etc.
+	// criteria is category, date, item name, etc.
 	private String criteria;
 	private final IModel myModel;
 	/** the view to display to */
 	private final IItemView2 myView;
 	private String current_user;
-	
+
 	private String refined_search;
 	private String kind;
 	private String lost_etc_categories;
 	private String status;
 
 	/**
-     * Constructor
-     * 
-     * @param myModel, view
-     *
-     */
+	 * Constructor
+	 * 
+	 * @param myModel
+	 *            , view
+	 * 
+	 */
 	public advancedSearchPresenter(IModel myModel, IItemView2 view) {
 		myView = view;
 		this.myModel = myModel;
 	}
 
 	/**
-     *  Criteria that determines what we are to search
-     * 
-     * @param String criteria
-     *	@return void
-     */
+	 * Criteria that determines what we are to search
+	 * 
+	 * @param String
+	 *            criteria
+	 * @return void
+	 */
 	public void getCriteria(String criteria) {
 		this.criteria = criteria;
 		this.criteria = this.criteria.toLowerCase(Locale.US);
 
 	}
-
-
-	
-	
 
 	public void displayCategory() {
 		// TODO Auto-generated method stub
@@ -77,7 +76,7 @@ public class advancedSearchPresenter {
 			myView.makeInvisibleSpinner();
 			myView.makeRadioVisible();
 			myView.makeAutoCompleteTextViewInvisible();
-		}else if("item name".compareTo(criteria) == 0){
+		} else if ("item name".compareTo(criteria) == 0) {
 			myView.makeDatePickerInvisible();
 			myView.makeInvisibleSpinner();
 			myView.makeRadioInvisible();
@@ -86,7 +85,6 @@ public class advancedSearchPresenter {
 			myView.makeAutoCompleteTextViewVisible();
 		}
 	}
-
 
 	/**
 	 * check to make sure we have the right amount of info. param:
@@ -132,7 +130,6 @@ public class advancedSearchPresenter {
 		}
 	}
 
-	
 	public void search(boolean proceed, boolean date, boolean category,
 			boolean status) {
 		// TODO Auto-generated method stub
@@ -140,67 +137,98 @@ public class advancedSearchPresenter {
 		if (!proceed)
 			return;
 		myModel.open();
-		if (date)
-			c= myModel.searchByDate(lost_etc_categories, refined_search);
-		else if (category) {
-			if("item name".compareTo(criteria) == 0){
-				String [] array = myView.getNameLocation();
+		if (date) {
+			c = myModel.searchByDate(lost_etc_categories, refined_search);
+			myView.setItem(toItem(c));
+		} else if (category) {
+			if ("item name".compareTo(criteria) == 0) {
+				String[] array = myView.getNameLocation();
 				CheckDisplayAll check = new CheckNameLocation(array);
-				//check for two items
-				if(check.check())
+				// check for two items
+				if (check.check()) {
 					c = myModel.searchByItemName(lost_etc_categories, array);
-				else{
+					findMinDistance(c,array[0]);
+				} else {
 					String str = check.getNameOrlocation();
-					c = myModel.searchByItemName(lost_etc_categories, str);
+					if (str != null) {
+						c = myModel.searchByZip(lost_etc_categories, str);
+
+						if (c == null) {
+							c = myModel.getAllItems(lost_etc_categories);
+							findMinDistance(c, str);
+						} else
+							myView.setItem(toItem(c));
+					}else {
+						
+					}
 				}
-			}else{
-				c= myModel.searchByCategory(lost_etc_categories, refined_search);
+			} else {
+				c = myModel.searchByCategory(lost_etc_categories,
+						refined_search);
+				myView.setItem(toItem(c));
 			}
 		} else if (status) {
-			c= myModel.searchByStatus(lost_etc_categories, refined_search);	
+			c = myModel.searchByStatus(lost_etc_categories, refined_search);
+			myView.setItem(toItem(c));
 		}
 
-		myView.setItem(toItem(c));
 		myView.setAdapter();
 
 		myModel.close();
-		c.close();
+		if (c != null)
+			c.close();
 	}
 
-	public Item [] toItem(Cursor c){
+	private void findMinDistance(Cursor cursor, String searchFor) {
+		Item[] i = toItem(cursor);
+		List<Item> items = new ArrayList<Item>();
+		for (Item item : i) {
+			int tempmin = MinEditDistance.minEdit(item.getItemName()
+					.toLowerCase(), searchFor.toLowerCase());
+			if (MinEditDistance.minEdit(item.getItemName().toLowerCase(),
+					searchFor.toLowerCase()) <= 4) {
+				items.add(item);
+			}
+		}
+		i = null;
+		i = new Item[0];
+		i = items.toArray(i);
+
+		myView.setItem(i);
+	}
+
+	public Item[] toItem(Cursor c) {
 		List<Item> array = new ArrayList<Item>();
 		c.moveToFirst();
-		while(!c.isAfterLast()){
+		while (!c.isAfterLast()) {
 
-				String itemName = c
-						.getString(c.getColumnIndex(DB_Helper.ITEM_NAME));
-				String itemCategory = c.getString(c
-						.getColumnIndex(DB_Helper.ITEM_CATEGORY));
-				String itemStatus = c.getString(c
-						.getColumnIndex(DB_Helper.ITEM_STATUS));
-				String itemDescription = c.getString(c
-						.getColumnIndex(DB_Helper.ITEM_DESCRIPTION));
-				String date = c.getString(c
-						.getColumnIndex(DB_Helper.ITEM_DATE));
-				int keepsake = c.getInt(c.getColumnIndex(DB_Helper.ITEM_KEEPSAKE));
-				int heirloom = c.getInt(c.getColumnIndex(DB_Helper.ITEM_HEIRLOOM));
-				int misc = c.getInt(c.getColumnIndex(DB_Helper.ITEM_MISC));
-				String zip = c.getString(c.getColumnIndex(DB_Helper.ITEM_ZIP));
-				String street = c
-						.getString(c.getColumnIndex(DB_Helper.ITEM_STREET));
-				//Date d = new Date(date)
+			String itemName = c
+					.getString(c.getColumnIndex(DB_Helper.ITEM_NAME));
+			String itemCategory = c.getString(c
+					.getColumnIndex(DB_Helper.ITEM_CATEGORY));
+			String itemStatus = c.getString(c
+					.getColumnIndex(DB_Helper.ITEM_STATUS));
+			String itemDescription = c.getString(c
+					.getColumnIndex(DB_Helper.ITEM_DESCRIPTION));
+			String date = c.getString(c.getColumnIndex(DB_Helper.ITEM_DATE));
+			int keepsake = c.getInt(c.getColumnIndex(DB_Helper.ITEM_KEEPSAKE));
+			int heirloom = c.getInt(c.getColumnIndex(DB_Helper.ITEM_HEIRLOOM));
+			int misc = c.getInt(c.getColumnIndex(DB_Helper.ITEM_MISC));
+			String zip = c.getString(c.getColumnIndex(DB_Helper.ITEM_ZIP));
+			String street = c
+					.getString(c.getColumnIndex(DB_Helper.ITEM_STREET));
+			// Date d = new Date(date)
 
-				Item item = new LostItem(itemName, itemCategory, itemStatus,
-						itemDescription, current_user, Long.parseLong(date), keepsake, heirloom,
-						misc, zip, street);
-				array.add(item);
-				c.moveToNext();
-			}
+			Item item = new LostItem(itemName, itemCategory, itemStatus,
+					itemDescription, current_user, Long.parseLong(date),
+					keepsake, heirloom, misc, zip, street);
+			array.add(item);
+			c.moveToNext();
+		}
 		int length = array.size();
-		
+
 		Item[] a_item = new Item[length];
 		a_item = array.toArray(a_item);
-
 
 		return a_item;
 

@@ -291,4 +291,6 @@ public interface IModel {
 	 */
 	Cursor searchByItemName(String lost_etc_categories, String itemName);
 
+	Cursor getAllItems(String lost_etc_categories);
+
 }

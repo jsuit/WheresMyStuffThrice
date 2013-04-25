@@ -52,8 +52,8 @@ public class DisplayAllItems extends Activity implements
 	private boolean item_name = false;
 	private boolean item_location = false;
 	private ListView l_view;
-    private	ItemAdapter adapter;
-    private AutoCompleteTextView zip_code;
+	private ItemAdapter adapter;
+	private AutoCompleteTextView zip_code;
 	private OnDateSetListener date_listener;
 	private AutoCompleteTextView autotext;
 
@@ -63,7 +63,6 @@ public class DisplayAllItems extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.displayallitems);
 
-		
 		spinner = (Spinner) findViewById(R.id.search_by);
 		spinner2 = (Spinner) findViewById(R.id.search_category);
 		autotext = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
@@ -112,7 +111,6 @@ public class DisplayAllItems extends Activity implements
 		l_view = (ListView) findViewById(R.id.list_of_many_items);
 
 		zip_code = (AutoCompleteTextView) findViewById(R.id.zip);
-		
 
 	}
 
@@ -185,9 +183,15 @@ public class DisplayAllItems extends Activity implements
 	}
 
 	public void setAdapter() {
-		adapter = new ItemAdapter(this, items);
-		l_view.setAdapter(adapter);
-		
+		if (items != null) {
+			adapter = new ItemAdapter(this, items);
+			l_view.setAdapter(adapter);
+			items = null;
+			Log.d("items", "items is not null");
+		}else{
+			l_view.setAdapter(null);
+		}
+			
 
 	}
 
@@ -215,19 +219,19 @@ public class DisplayAllItems extends Activity implements
 	@Override
 	public void notify_of_error(String error_message, String title) {
 		// TODO Auto-generated method stub
-		
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(error_message);
 		builder.setTitle(title);
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-			      public void onClick(DialogInterface dialog, int id) {
-			    	  return;
+			public void onClick(DialogInterface dialog, int id) {
+				return;
 
-			         }
+			}
 
-			     });
-		
+		});
+
 		builder.create().show();
 
 	}
@@ -274,7 +278,7 @@ public class DisplayAllItems extends Activity implements
 
 		else if (parent.getId() == R.id.search_category) {
 			l_view.setAdapter(null);
-			
+
 			date = false;
 			category = true;
 			status = false;
@@ -296,10 +300,6 @@ public class DisplayAllItems extends Activity implements
 		presenter.search(presenter.check(search_criteria_radio,
 				search_criteria, refined_search), date, category, status);
 
-		
-		
-		
-
 	}
 
 	@Override
@@ -320,7 +320,6 @@ public class DisplayAllItems extends Activity implements
 		// TODO Auto-generated method stub
 
 		status_radio.setVisibility(View.GONE);
-		
 
 	}
 
@@ -329,7 +328,7 @@ public class DisplayAllItems extends Activity implements
 		// TODO Auto-generated method stub
 
 		status_radio.setVisibility(View.VISIBLE);
-		
+
 	}
 
 	@Override
@@ -339,31 +338,35 @@ public class DisplayAllItems extends Activity implements
 		return cal.getTimeInMillis();
 
 	}
-	
-	public void makeNameVisible(){
+
+	public void makeNameVisible() {
 		autotext.setVisibility(View.VISIBLE);
 	}
-	
-	public void makeZipVisible(){
+
+	public void makeZipVisible() {
 		zip_code.setVisibility(View.VISIBLE);
 	}
+
 	@Override
 	public void makeAutoCompleteTextViewVisible() {
 		makeNameVisible();
 		makeZipVisible();
-		
+
 	}
+
 	@Override
 	public void makeAutoCompleteTextViewInvisible() {
 		makeNameInVisible();
 		makeZipInVisible();
 	}
+
 	@Override
-	public void makeNameInVisible(){
+	public void makeNameInVisible() {
 		autotext.setVisibility(View.GONE);
 	}
+
 	@Override
-	public void makeZipInVisible(){
+	public void makeZipInVisible() {
 		zip_code.setVisibility(View.GONE);
 	}
 
@@ -371,13 +374,14 @@ public class DisplayAllItems extends Activity implements
 	public void setHint(String string) {
 		// TODO Auto-generated method stub
 		autotext.setHint(string);
-		
+
 	}
 
 	@Override
-	public String [] getNameLocation() {
-		
-		String [] array = {autotext.getText().toString(), zip_code.getText().toString()};
+	public String[] getNameLocation() {
+
+		String[] array = { autotext.getText().toString(),
+				zip_code.getText().toString() };
 		return array;
 	}
 
@@ -386,7 +390,5 @@ public class DisplayAllItems extends Activity implements
 		// TODO Auto-generated method stub
 		autotext.setText("");
 	}
-
-	
 
 }

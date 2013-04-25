@@ -17,6 +17,7 @@ import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 
 import com.example.wheresmystuff.DB_Helper;
+import com.example.wheresmystuff.MinEditDistance;
 import com.example.wheresmystuff.Model.Item.Item;
 import com.example.wheresmystuff.Model.Item.ItemInfo;
 import com.example.wheresmystuff.Model.Item.LostItem;
@@ -689,15 +690,13 @@ public class DB implements IModel {
 			String[] name_location) {
 		// first member in itemname should be the name, second the zip
 
-		Cursor c = database.query(
-				DB_Helper.ITEM_TABLE,
-				null,
-				DB_Helper.ITEM_CATEGORY + "=? AND " + DB_Helper.ITEM_NAME
-						+ "=? AND " + DB_Helper.ITEM_ZIP + "=?",
-				new String[] { lost_etc_categories,
-						name_location[0].toLowerCase(Locale.US),
-						name_location[1] }, null, null, DB_Helper.ITEM_NAME
-						+ " ASC");
+		Cursor c = database
+				.query(DB_Helper.ITEM_TABLE, null, DB_Helper.ITEM_CATEGORY
+						+ "=? AND " + DB_Helper.ITEM_ZIP + "=?", new String[] {
+						lost_etc_categories, name_location[1] }, null, null,
+						DB_Helper.ITEM_NAME + " ASC");
+		
+
 		c.moveToFirst();
 		return c;
 	}
@@ -714,16 +713,18 @@ public class DB implements IModel {
 	public Cursor searchByItemName(String lost_etc_categories,
 			String itemNameLocation) {
 		// first member in itemname should be the name, second the zip
+		Cursor cursor = searchByZip(lost_etc_categories, itemNameLocation);
+		if (!cursor.moveToFirst()) {
+			return getAllItems(lost_etc_categories);
+		} else
+			return cursor;
+	}
 
+	public Cursor getAllItems(String lost_etc_categories) {
 		Cursor c = database.query(DB_Helper.ITEM_TABLE, null,
-				DB_Helper.ITEM_CATEGORY + "=? AND " + DB_Helper.ITEM_NAME
-						+ "=?", new String[] { lost_etc_categories,
-						itemNameLocation.toLowerCase() }, null, null,
+				DB_Helper.ITEM_CATEGORY + "=?",
+				new String[] { lost_etc_categories }, null, null,
 				DB_Helper.ITEM_NAME + " ASC");
-		if (!c.moveToFirst()) {
-			return searchByZip(lost_etc_categories, itemNameLocation);
-
-		}
 		c.moveToFirst();
 		return c;
 	}
@@ -743,8 +744,10 @@ public class DB implements IModel {
 						+ "=? AND " + DB_Helper.ITEM_ZIP + "=?", new String[] {
 						lost_etc_categories, i_zip }, null, null,
 						DB_Helper.ITEM_NAME + " ASC");
-		c.moveToFirst();
-		return c;
+		if (c.moveToFirst())
+			return c;
+		else
+			return null;
 	}
 
 }
